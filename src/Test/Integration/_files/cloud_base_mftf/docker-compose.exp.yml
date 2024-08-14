@@ -51,7 +51,7 @@ services:
           - redis.magento2.docker
   fpm:
     hostname: fpm.magento2.docker
-    image: 'magento/magento-cloud-docker-php:7.3-fpm-1.2.0'
+    image: 'magento/magento-cloud-docker-php:8.0-fpm-1.2.0'
     extends: generic
     volumes:
       - './magento2ce:/app:ro,delegated'
@@ -140,7 +140,7 @@ services:
         condition: service_started
   test:
     hostname: test.magento2.docker
-    image: 'magento/magento-cloud-docker-php:7.3-cli-1.2.0'
+    image: 'magento/magento-cloud-docker-php:8.0-cli-1.2.0'
     extends: generic
     volumes:
       - './magento2ce:/app:rw,delegated'
@@ -164,7 +164,7 @@ services:
         condition: service_healthy
   fpm_xdebug:
     hostname: fpm_xdebug.magento2.docker
-    image: 'magento/magento-cloud-docker-php:7.3-fpm-1.2.0'
+    image: 'magento/magento-cloud-docker-php:8.0-fpm-1.2.0'
     extends: generic
     volumes:
       - './magento2ce:/app:ro,delegated'
@@ -187,13 +187,13 @@ services:
         condition: service_started
   generic:
     hostname: generic.magento2.docker
-    image: 'magento/magento-cloud-docker-php:7.3-cli-1.2.0'
+    image: 'magento/magento-cloud-docker-php:8.0-cli-1.2.0'
     env_file: ./.docker/config.env
     environment:
       - 'PHP_EXTENSIONS=bcmath bz2 calendar exif gd gettext intl mysqli pcntl pdo_mysql soap sockets sysvmsg sysvsem sysvshm opcache zip xsl sodium redis'
   build:
     hostname: build.magento2.docker
-    image: 'magento/magento-cloud-docker-php:7.3-cli-1.2.0'
+    image: 'magento/magento-cloud-docker-php:8.0-cli-1.2.0'
     extends: generic
     volumes:
       - './magento2ce:/app:rw,delegated'
@@ -211,7 +211,7 @@ services:
         condition: service_healthy
   deploy:
     hostname: deploy.magento2.docker
-    image: 'magento/magento-cloud-docker-php:7.3-cli-1.2.0'
+    image: 'magento/magento-cloud-docker-php:8.0-cli-1.2.0'
     extends: generic
     volumes:
       - './magento2ce:/app:ro,delegated'
@@ -234,7 +234,7 @@ services:
         condition: service_healthy
   cron:
     hostname: cron.magento2.docker
-    image: 'magento/magento-cloud-docker-php:7.3-cli-1.2.0'
+    image: 'magento/magento-cloud-docker-php:8.0-cli-1.2.0'
     extends: generic
     command: run-cron
     environment:
