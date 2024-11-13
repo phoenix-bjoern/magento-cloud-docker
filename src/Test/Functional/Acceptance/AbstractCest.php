@@ -13,16 +13,6 @@ namespace Magento\CloudDocker\Test\Functional\Acceptance;
 abstract class AbstractCest
 {
     /**
-     * @var boolean
-     */
-    protected $removeEs = true;
-
-    /**
-     * @var boolean
-    */
-    protected $runComposerUpdate = true;
-
-    /**
      * Template version for testing
      */
     protected const TEMPLATE_VERSION = 'master';
@@ -52,31 +42,24 @@ abstract class AbstractCest
             'magento/ece-tools',
             $I->getDependencyVersion('magento/ece-tools') ?: 'dev-develop as 2002.1.99'
         );
-        
+
         if ($mccVersion = $I->getDependencyVersion('magento/magento-cloud-components')) {
             $I->addCloudComponentsGitRepoToComposer();
-            echo "=======mccVersion==========".$mccVersion;
             $I->addDependencyToComposer('magento/magento-cloud-components', $mccVersion);
         }
 
         if ($mcpVersion = $I->getDependencyVersion('magento/magento-cloud-patches')) {
             $I->addCloudPatchesGitRepoToComposer();
-            echo "=======mcpVersion==========".$mcpVersion;
             $I->addDependencyToComposer('magento/magento-cloud-patches', $mcpVersion);
         }
 
         if ($mqpVersion = $I->getDependencyVersion('magento/quality-patches')) {
             $I->addQualityPatchesGitRepoToComposer();
-            echo "=======mqpVersion==========".$mqpVersion;
             $I->addDependencyToComposer('magento/quality-patches', $mqpVersion);
         }
-        
-        if ($this->runComposerUpdate) {
-            $I->assertTrue($I->composerUpdate(), 'Composer update failed');
-            $I->cacheWorkDir(static::TEMPLATE_VERSION);
-        }
-        
-        $this->removeESIfExists($I, static::TEMPLATE_VERSION);
+
+        $I->assertTrue($I->composerUpdate(), 'Composer update failed');
+        $I->cacheWorkDir(static::TEMPLATE_VERSION);
     }
 
     /**
