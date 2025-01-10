@@ -26,9 +26,10 @@
         "codeception/module-rest": "^1.2 || ^3.0",
         "consolidation/robo": "^2.0 || ^3.0",
         "phpmd/phpmd": "@stable",
-        "phpstan/phpstan": "^1.8",
-        "phpunit/phpunit": "^9.5",
-        "squizlabs/php_codesniffer": "^3.6"
+        "phpstan/phpstan": "^1.8 || ^2.0",
+        "phpunit/php-code-coverage": "^10.1",
+        "phpunit/phpunit": "^9.5 || ^10.5",
+        "squizlabs/php_codesniffer": "^3.7"
     },
     "bin": [
         "bin/ece-docker"
@@ -37,7 +38,8 @@
         "psr-4": {
             "Magento\\CloudDocker\\": "src/",
             "Magento\\CloudDocker\\Test\\Integration\\": "tests/integration",
-            "Magento\\CloudDocker\\Test\\Functional\\": "tests/functional/"
+            "Magento\\CloudDocker\\Test\\Functional\\": "tests/functional/",
+            "Magento\\CloudDocker\\Test\\Functional\\Support\\": "tests/functional/_support/"
         }
     },
     "scripts": {
@@ -55,7 +57,8 @@
         "test:integration": "phpunit --configuration tests/integration"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "optimize-autoloader": true
     },
     "prefer-stable": true,
     "extra": {

@@ -104,35 +104,73 @@ class RelationshipTest extends TestCase
 
         $this->configMock->expects($this->exactly(8))
             ->method('hasServiceEnabled')
-            ->withConsecutive(
-                [ServiceInterface::SERVICE_DB],
-                [ServiceInterface::SERVICE_DB_QUOTE],
-                [ServiceInterface::SERVICE_DB_SALES],
-                ['redis'],
-                ['elasticsearch'],
-                ['opensearch'],
-                ['rabbitmq'],
-                ['zookeeper']
-            )
-            ->willReturnOnConsecutiveCalls(true, false, false, true, true, true, true, true);
+            ->willReturnCallback(function ($service) {
+                static $services = [
+                    ServiceInterface::SERVICE_DB,
+                    ServiceInterface::SERVICE_DB_QUOTE,
+                    ServiceInterface::SERVICE_DB_SALES,
+                    'redis',
+                    'elasticsearch',
+                    'opensearch',
+                    'rabbitmq',
+                    'zookeeper'
+                ];
+
+                static $responses = [
+                    true,
+                    false,
+                    false,
+                    true,
+                    true,
+                    true,
+                    true,
+                    true
+                ];
+
+                $expectedService = array_shift($services);
+                $expectedResponse = array_shift($responses);
+
+                $this->assertSame($expectedService, $service);
+
+                return $expectedResponse;
+            });
+
         $this->configMock->expects($this->exactly(6))
             ->method('getServiceVersion')
-            ->withConsecutive(
-                [ServiceInterface::SERVICE_DB],
-                ['redis'],
-                ['elasticsearch'],
-                ['opensearch'],
-                ['rabbitmq'],
-                ['zookeeper']
-            )
-            ->willReturnOnConsecutiveCalls(
+            ->willReturnCallback(function ($service) use (
                 $mysqlVersion,
                 $redisVersion,
                 $esVersion,
                 $osVersion,
                 $rmqVersion,
                 $zookeeperVersion
-            );
+            ) {
+                static $services = [
+                    ServiceInterface::SERVICE_DB,
+                    'redis',
+                    'elasticsearch',
+                    'opensearch',
+                    'rabbitmq',
+                    'zookeeper'
+                ];
+
+                static $versions = [
+                    $mysqlVersion,
+                    $redisVersion,
+                    $esVersion,
+                    $osVersion,
+                    $rmqVersion,
+                    $zookeeperVersion
+                ];
+
+                $expectedService = array_shift($services);
+                $expectedVersion = array_shift($versions);
+
+                // Assert that the service passed is the expected one
+                $this->assertSame($expectedService, $service);
+
+                return $expectedVersion;
+            });
 
         $this->assertEquals($configWithType, $this->relationship->get($this->configMock));
     }

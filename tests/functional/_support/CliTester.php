@@ -5,6 +5,8 @@
  */
 declare(strict_types=1);
 
+namespace Magento\CloudDocker\Test\Functional\Support;
+
 /**
  * @inheritdoc
  */
