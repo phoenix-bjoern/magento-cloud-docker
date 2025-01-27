@@ -135,40 +135,35 @@ class RelationshipTest extends TestCase
                 return $expectedResponse;
             });
 
+        $services = [
+            ServiceInterface::SERVICE_DB,
+            'redis',
+            'elasticsearch',
+            'opensearch',
+            'rabbitmq',
+            'zookeeper'
+        ];
+        
+        $versions = [
+            $mysqlVersion,
+            $redisVersion,
+            $esVersion,
+            $osVersion,
+            $rmqVersion,
+            $zookeeperVersion
+            ];
+
         $this->configMock->expects($this->exactly(6))
             ->method('getServiceVersion')
             ->willReturnCallback(function ($service) use (
-                $mysqlVersion,
-                $redisVersion,
-                $esVersion,
-                $osVersion,
-                $rmqVersion,
-                $zookeeperVersion
+                &$services,
+                &$versions
             ) {
-                static $services = [
-                    ServiceInterface::SERVICE_DB,
-                    'redis',
-                    'elasticsearch',
-                    'opensearch',
-                    'rabbitmq',
-                    'zookeeper'
-                ];
-
-                static $versions = [
-                    $mysqlVersion,
-                    $redisVersion,
-                    $esVersion,
-                    $osVersion,
-                    $rmqVersion,
-                    $zookeeperVersion
-                ];
-
                 $expectedService = array_shift($services);
                 $expectedVersion = array_shift($versions);
-
-                // Assert that the service passed is the expected one
+        
                 $this->assertSame($expectedService, $service);
-
+        
                 return $expectedVersion;
             });
 
