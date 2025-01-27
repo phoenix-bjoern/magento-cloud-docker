@@ -190,24 +190,24 @@ class GeneratorTest extends TestCase
                     'exported_application_value',
                 ]
             ]);
+            
+        $expectedCalls = [
+            [
+                $rootDir . '/config.php.dist',
+                $this->getConfigForUpdate(),
+            ],
+            [
+                $rootDir . '/config.env',
+                'MAGENTO_CLOUD_RELATIONSHIPS=base64_relationship_value' . PHP_EOL
+                . 'MAGENTO_CLOUD_ROUTES=base64_routes_value' . PHP_EOL
+                . 'MAGENTO_CLOUD_VARIABLES=base64_variables_value' . PHP_EOL
+                . 'MAGENTO_CLOUD_APPLICATION=base64_application_value' . PHP_EOL,
+            ],
+        ];
 
         $this->filesystemMock->expects($this->exactly(2))
             ->method('put')
-            ->willReturnCallback(function ($file, $content) use ($rootDir) {
-                static $expectedCalls = [
-                    [
-                        $rootDir . '/config.php.dist',
-                        $this->getConfigForUpdate(),
-                    ],
-                    [
-                        $rootDir . '/config.env',
-                        'MAGENTO_CLOUD_RELATIONSHIPS=base64_relationship_value' . PHP_EOL
-                        . 'MAGENTO_CLOUD_ROUTES=base64_routes_value' . PHP_EOL
-                        . 'MAGENTO_CLOUD_VARIABLES=base64_variables_value' . PHP_EOL
-                        . 'MAGENTO_CLOUD_APPLICATION=base64_application_value' . PHP_EOL,
-                    ],
-                ];
-
+            ->willReturnCallback(function ($file, $content) use (&$expectedCalls) {
                 $expectedCall = array_shift($expectedCalls);
 
                 $this->assertSame($expectedCall[0], $file);
