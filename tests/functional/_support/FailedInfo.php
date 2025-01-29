@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Codeception\Extension;
+namespace Magento\CloudDocker\Test\Functional\Support;
 
 use Codeception\Events;
 use Codeception\Extension;
