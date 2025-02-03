@@ -2,7 +2,7 @@
     "name": "magento/magento-cloud-docker",
     "description": "Magento Cloud Docker",
     "type": "magento2-component",
-    "version": "1.5.0",
+    "version": "1.4.0",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
@@ -10,9 +10,9 @@
     "require": {
         "php": "^8.0",
         "ext-json": "*",
-        "composer/composer": "^1.9 || ^2.0",
+        "composer/composer": "^1.9 || ^2.8 || !=2.2.16",
         "composer/semver": "@stable",
-        "illuminate/config": "^10.0 || ^11.0",
+        "illuminate/config": "^8.77 || ^10.0 || ^11.0",
         "symfony/config": "^4.4 || ^5.1|| ^5.4 || ^6.4",
         "symfony/console": "^4.4 || ^5.1 || ^5.4 || ^6.4",
         "symfony/dependency-injection": "^4.4 || ^5.1|| ^5.4 || ^6.4",
@@ -27,7 +27,7 @@
         "consolidation/robo": "^2.0 || ^3.0",
         "phpmd/phpmd": "@stable",
         "phpstan/phpstan": "^1.8 || ^2.0",
-        "phpunit/phpunit": "^9.5 || ^10.5",
+        "phpunit/phpunit": "^10.0",
         "squizlabs/php_codesniffer": "^3.7"
     },
     "bin": [
@@ -37,8 +37,7 @@
         "psr-4": {
             "Magento\\CloudDocker\\": "src/",
             "Magento\\CloudDocker\\Test\\Integration\\": "tests/integration",
-            "Magento\\CloudDocker\\Test\\Functional\\": "tests/functional/",
-            "Magento\\CloudDocker\\Test\\Functional\\Support\\": "tests/functional/_support/"
+            "Magento\\CloudDocker\\Test\\Functional\\": "tests/functional/"
         }
     },
     "scripts": {
