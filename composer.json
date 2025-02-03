@@ -37,8 +37,7 @@
         "psr-4": {
             "Magento\\CloudDocker\\": "src/",
             "Magento\\CloudDocker\\Test\\Integration\\": "tests/integration",
-            "Magento\\CloudDocker\\Test\\Functional\\": "tests/functional/",
-            "Magento\\CloudDocker\\Test\\Functional\\Support\\": "tests/functional/_support/"
+            "Magento\\CloudDocker\\Test\\Functional\\": "tests/functional/"
         }
     },
     "scripts": {

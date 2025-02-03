@@ -5,8 +5,6 @@
  */
 declare(strict_types=1);
 
-namespace Magento\CloudDocker\Test\Functional\Support;
-
 use Codeception\Events;
 use Codeception\Extension;
 use Codeception\Event\FailEvent;
