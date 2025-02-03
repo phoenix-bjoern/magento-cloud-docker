@@ -5,6 +5,8 @@
  */
 declare(strict_types=1);
 
+namespace Codeception\Extension;
+
 use Codeception\Events;
 use Codeception\Extension;
 use Codeception\Event\FailEvent;
